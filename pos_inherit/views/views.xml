@@ -1,0 +1,175 @@
+<odoo>
+  <data>
+ 
+        <template id="assets" inherit_id="pos_discount.assets">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/pos_inherit/static/src/js/discount.js"></script>
+          </xpath>
+        </template>
+
+ <!-- <template id="assets" inherit_id="pos_discount.assets">
+          <xpath expr="." position="inside">
+              <script type="text/javascript" src="/pos_inherit/static/src/js/discount.js"></script>
+          </xpath>
+        </template> -->
+
+
+
+
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+           
+
+            <xpath expr="//field[@name='vat']" position="after">
+              <field name="card_id"/>
+          </xpath>
+        </field>
+      </record>
+
+
+
+        <record id="product_tt_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+           
+
+            <xpath expr="//field[@name='type']" position="attributes">
+              <attribute name="default">product</attribute>
+<!--               <attribute name="readonly">True</attribute>
+ -->            </xpath>
+
+
+
+            </field>
+      </record>
+
+
+
+
+
+
+
+
+    <record id="view_move_form_expiry_inehrit" model="ir.ui.view">
+        <field name="name">stock.production.lot.inherit.form</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
+        <field name="arch" type="xml">
+        
+        <xpath expr="//div[hasclass('oe_title')]" position="inside">
+            <field name="product_remove_alert" invisible="1"/>
+            <span class="badge badge-danger" attrs="{'invisible': [('product_remove_alert', '=', False)]}">Removal Alert</span>
+        </xpath>
+        </field>
+    </record>
+
+
+    <record id="search_product_lot_filter_inherit_product_expiry_inherit" model="ir.ui.view">
+        <field name="name">stock.production.lot.search.inherit</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <filter string="Removal Alerts" name="Removal_alerts" domain="[('removal_date', '&lt;=', time.strftime('%Y-%m-%d %H:%M:%S'))]"/>
+            </xpath>
+        </field>
+     </record>
+
+
+
+
+<!-- 
+<record id="ir_cron_expiry_date" model="ir.cron">
+      <field name="interval_type">days</field>
+      <field name="name">Expiration Date</field>
+      <field name="numbercall">-1</field>
+      <field name="priority">5</field>
+      <field name="doall">False</field>
+      <field name="active">True</field>
+      <field name="interval_number">1</field>
+      <field name="model_id" ref="model_stock_production_lot"/>
+      <field name="state">code</field>
+      <field name="code">model.notificate_exipry_cron()</field>
+    </record>
+
+ -->
+
+
+
+
+
+
+
+
+
+
+
+<!-- if you to change product depends on rate -->
+
+    <record id="update_price_product_wizard" model="ir.ui.view">
+        <field name="name">Update Price</field>
+        <field name="model">update.product.price</field>
+        <field name="arch" type="xml">
+            <form string="Update Price on Currency">
+                <group>
+                    <field name="currency_id" required="1"/>
+                    <field name="date" required="1"/>                          
+                        </group>
+                <footer>
+                    <button string="Change Done" name="done" type="object"
+                            class="oe_highlight"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel"/>
+                  </footer>
+                                      </form>
+
+                </field>
+              </record>
+
+              
+
+    <record id="update_price_product_wizard_action" 
+        model="ir.actions.act_window">
+            <field name="name">Update Price</field>
+        <field name="type">ir.actions.act_window</field>
+
+        <field name="res_model">update.product.price</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem name="Update Product" id="update_price_product_wizard_menu" parent="point_of_sale.pos_config_menu_catalog"/>
+
+     <menuitem name="Update Product Price" id="update_price_product_menu1" parent="update_price_product_wizard_menu" action="update_price_product_wizard_action"/>
+
+
+
+
+
+
+
+
+
+
+
+        <record id="view_pos_pos_form_inherit" model="ir.ui.view">
+            <field name="name">pos.order.form</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+           
+
+            <xpath expr="//field[@name='amount_tax']" position="replace">
+              <field name="amount_total_new"/>
+          </xpath>
+        </field>
+      </record>
+
+
+
+  </data>
+</odoo>
