@@ -1,2 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_pos_inherit_pos_inherit,pos_inherit.pos_inherit,model_pos_inherit_pos_inherit,base.group_user,1,1,1,1
+access_product_product_pos_user,product.product.posuser,product.model_product_product,point_of_sale.group_pos_user,1,1,1,1
+
+access_product_template_pos_user,product.template.posuser,product.model_product_template,point_of_sale.group_pos_user,1,1,1,1
+access_uom_uom_user,uom.uom.user,uom.model_uom_uom,point_of_sale.group_pos_user,1,0,0,0
+access_product_category_user,product.category.user,product.model_product_category,point_of_sale.group_pos_user,1,0,0,0
+access_stock_warehouse_user,stock.warehouse.user,stock.model_stock_warehouse,point_of_sale.group_pos_user,1,0,0,0
+access_stock_location_user,stock.location.user,stock.model_stock_location,point_of_sale.group_pos_user,1,0,0,0
+access_account_bank_statement_user,account.bank.statement.user,account.model_account_bank_statement,point_of_sale.group_pos_user,1,1,1,1
+access_account_bank_statement_line_user,account.bank.statement.line.user,account.model_account_bank_statement_line,point_of_sale.group_pos_user,1,1,1,1
+

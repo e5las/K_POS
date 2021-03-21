@@ -142,11 +142,11 @@
         <field name="target">new</field>
     </record>
 
-    <menuitem name="Update Product" id="update_price_product_wizard_menu" parent="point_of_sale.pos_config_menu_catalog"/>
+    <!-- <menuitem name="Update Product" id="update_price_product_wizard_menu" parent="point_of_sale.pos_config_menu_catalog"/>
 
      <menuitem name="Update Product Price" id="update_price_product_menu1" parent="update_price_product_wizard_menu" action="update_price_product_wizard_action"/>
 
-
+ -->
 
 
 
@@ -165,11 +165,18 @@
 
             <xpath expr="//field[@name='amount_tax']" position="replace">
               <field name="amount_total_new"/>
-<!--               <field name="amount_discount_new"/>
- -->          </xpath>
+              <field name="amount_discount_new"/>
+          </xpath>
         </field>
       </record>
 
+
+<!-- Reporting menu -->
+    <menuitem id="point_of_sale.menu_point_rep"
+        name="Reporting"
+        parent="point_of_sale.menu_point_root"
+        sequence="90"
+        groups="point_of_sale.group_pos_manager,point_of_sale.group_pos_user"/>
 
 
   </data>

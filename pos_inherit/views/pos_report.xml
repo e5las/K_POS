@@ -60,12 +60,20 @@
 
                             </td>
 
-                               <td>
+                              <td>
+                                <span t-esc="doc['amount_discount_new']"/>
+                       <t t-set="total_discount" 
+ t-value="total_discount + doc.amount_discount_new"/>
+
+                            </td>
+
+
+                             <!--   <td>
                                 <span t-esc="total_discount"/>
                        <t t-set="total_discount" 
  t-value=" doc.amount_total_new - doc.amount_total"/>
 
-                            </td>
+                            </td> -->
 
                             <td>
                                 <span t-esc="doc['amount_total']"/>
