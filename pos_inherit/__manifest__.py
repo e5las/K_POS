@@ -19,7 +19,7 @@
     'point_of_sale','pos_discount','product_return_pos','pos_scan_camera','pos_ui_design',
     'sr_print_pos_session','nuro_pos_receipt','l10n_generic_coa','pos_traceability_validation','product_multi_uom_pos',
     'purchase','product_expiry','stock_picking_auto_create_lot','pos_disable_discount',
-    'muk_web_theme'],
+    'muk_web_theme','auto_backup'],
     # always loaded
     'data': [
         'security/ir.model.access.csv',
