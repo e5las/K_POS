@@ -165,7 +165,8 @@
 
             <xpath expr="//field[@name='amount_tax']" position="replace">
               <field name="amount_total_new"/>
-          </xpath>
+<!--               <field name="amount_discount_new"/>
+ -->          </xpath>
         </field>
       </record>
 

@@ -194,6 +194,7 @@ class PosOrder(models.Model):
     _inherit='pos.order'
 
     amount_total_new = fields.Float(string='Total per discount', digits=0, readonly=True, required=True,compute='_amount_all_new')
+    # amount_discount_new = fields.Float(string='discount', digits=0, readonly=True, required=True,compute='_amount_all_new')
 
     @api.depends('lines.price_subtotal_incl')
     def _amount_all_new(self):
@@ -202,11 +203,15 @@ class PosOrder(models.Model):
         """
         for order in self:
             amount_untaxed  = 0.0
+            amount_tax=0.0
             for line in order.lines:
                 if line.product_id.type=='product':
                     amount_untaxed += line.price_subtotal_incl
-                    # amount_tax += line.price_tax
+
+                # if line.product_id.type!='products':
+                #     amount_tax += line.price_subtotal_incl
             order.update({
                 # 'amount_untaxed_new': amount_untaxed,
                 'amount_total_new': amount_untaxed ,
+                # 'amount_discount_new': amount_tax ,
             })

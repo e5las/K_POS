@@ -1,0 +1,115 @@
+<odoo>
+	<report
+	    id="action_pos_order_list_report"
+	    model="pos.order"
+	    string="Financial Report"
+	    report_type="qweb-pdf"
+	    name="pos_inherit.pos_order_list"
+	    file="pos_inherit.pos_order_list"/>
+
+	        <template id="pos_order_list">
+                <t t-call="web.html_container">
+
+	        	<xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="web.external_layout">
+                <div class="page">
+
+                                <h3 align="center"><strong>Financial Report of Sales  </strong></h3>
+                                <br/>
+                                <br/>
+
+
+            <br/>
+            <table class="table table-condensed table-bordered" style="width: 100%">
+                <thead>
+
+                    <th class="text-center" > Date </th>
+                    <th class="text-center" > Order No.</th>
+                    <th class="text-center" > Employee Name</th>
+                    <th class="text-center" >Total</th>
+                    <th class="text-center" > Discount 75%</th>
+                    <th class="text-center" >NET</th>
+<!--                     <th class="text-center" >Paid Amount</th>
+ -->
+                </thead>
+                <tbody>
+                     <t t-set="total_amount_total" t-value="0"/>
+                     <t t-set="total_paid_amount" t-value="0"/>
+                     <t t-set="total_discount" t-value="0"/>
+                     <t t-set="total" t-value="0"/>
+
+
+                    <t t-foreach="docs" t-as="doc">
+                        <tr>
+
+                        <td>
+                                <span t-esc="doc['date_order']"/>
+                            </td>
+
+                            <td>
+                                <span t-esc="doc['name']"/>
+                            </td>
+                            <td>
+                                <span t-esc="doc['partner_id'].name"/>
+                            </td>
+
+                            
+                            <td>
+                                <span t-esc="doc['amount_total_new']"/>
+                            <t t-set="total_amount_total" t-value="total_amount_total + doc.amount_total_new"/>
+
+                            </td>
+
+                               <td>
+                                <span t-esc="total_discount"/>
+                       <t t-set="total_discount" 
+ t-value=" doc.amount_total_new - doc.amount_total"/>
+
+                            </td>
+
+                            <td>
+                                <span t-esc="doc['amount_total']"/>
+                            <t t-set="total" t-value="total + doc.amount_total"/>
+
+                            </td>
+                           <!--  <td>
+                                <span t-esc="doc['paid_amount']"/>
+                                <t t-set="total_paid_amount" t-value="total_paid_amount + doc.paid_amount"/>
+
+                            </td> -->
+
+
+                            
+
+                        </tr>
+                    </t>
+                     <tr>
+                                   <td >
+                                   <b>SUM</b>
+                                    </td>
+                                    <td>
+                                    </td>
+                                     <td>
+                                    </td>
+                                    <td>
+                                   
+                                        <span t-esc="total_amount_total" />
+                                    </td>
+                                      <td >
+                                    <span t-esc="total_discount" />
+                                    </td>
+                                    <td >
+                                        <span t-esc="total" />
+                                    </td>
+                                  
+                                  
+                                </tr>
+
+                </tbody>
+            </table>
+        </div>
+</t>
+</xpath>
+                </t>
+</template>
+</odoo>
